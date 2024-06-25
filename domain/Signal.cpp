@@ -94,4 +94,36 @@ void Signal::unsetAllSignals() {
 	}
 }
 
+int Signal::countInput() {
+	return inputs.size();
+}
+
+int Signal::countOutput() {
+	return outputs.size();
+}
+
+void Signal::setInputs(std::vector<value_t> values) {
+	if (values.size() != inputs.size()) {
+		throw std::runtime_error(
+			"Test vector size mismatch! Test vector size = "
+			+ std::to_string(values.size())
+			+ ", Input vector size = "
+			+ std::to_string(inputs.size())
+			+ "."
+		);
+	}
+	int size = values.size();
+	for (int i = 0; i < size; i++) {
+		inputs[i]->setValue(values[i]);
+	}
+}
+
+std::vector<Signal *> Signal::getInputs() {
+	return inputs;
+}
+
+std::vector<Signal*> Signal::getOutputs() {
+	return outputs;
+}
+
 #endif

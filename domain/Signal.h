@@ -29,6 +29,16 @@ public:
 
 	static bool allSignalsSet();
 
+	static int countInput();
+
+	static int countOutput();
+
+	static void setInputs(std::vector<value_t> values);
+
+	static std::vector<Signal*> getInputs();
+
+	static std::vector<Signal*> getOutputs();
+
 	std::string getLabel();
 
 	value_t getValue();

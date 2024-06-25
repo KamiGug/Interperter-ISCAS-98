@@ -1,0 +1,14 @@
+#some=comment
+
+#asda
+
+INPUT(input0)
+INPUT(input1)
+INPUT(input2)
+INPUT(input3)
+OUTPUT(output0)
+nOt1=not(input1)
+and1=and(input0, not1)
+and2=and(input2, not1)
+nor1=nor(input3, not1)
+output0=nor(and1, and2, nor1)

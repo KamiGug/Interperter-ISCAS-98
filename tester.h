@@ -16,34 +16,11 @@
 #include "domain/Gate/OrGate.h"
 #include "domain/Gate/XorGate.h"
 #include "domain/Gate/XnorGate.h"
-
-
-//TODO: DELETE THIS!!
-std::string getValueName(value_t val) {
-	switch (val)
-	{
-	case UNKNOWN_VALUE:
-		return "UNKNOWN VALUE";
-
-	case LOW_LEVEL:
-		return "LOW LEVEL";
-
-	case HIGH_LEVEL:
-		return "HIGH LEVEL";
-
-	default:
-		return "Not A Value";
-	}
-}
-
-int power(int base, int exponent) {
-	int tmp = 1;
-	for (; exponent > 0; exponent--) {
-		tmp *= base;
-	}
-	return tmp;
-}
-
+#include "helpers/misc.h"
+#include "infrastructure/Interpreter/Interpreter.h"
+#include "infrastructure/Tester/Tester.h"
+#include "infrastructure/Tester/CsvTester.h"
+#include "infrastructure/Tester/BinaryNumberTester.h"
 
 
 // TODO: Reference additional headers your program requires here.
