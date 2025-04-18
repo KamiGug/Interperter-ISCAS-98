@@ -3,9 +3,7 @@
 
 #include "OrGate.h"
 
-value_t OrGate::calculateValue(fault_t withThisFault) {
-	if (withThisFault == STUCK_AT_0) return LOW_LEVEL;
-	if (withThisFault == STUCK_AT_1) return HIGH_LEVEL;
+value_t OrGate::calculateValue() {
 	if (!(this->isReady()))	return UNKNOWN_VALUE;
 	std::vector<Signal*>::iterator i = inputs.begin();
 	while (i != inputs.end()) {

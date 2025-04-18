@@ -1,0 +1,5 @@
+
+input(input0)
+output(or1)
+not1=not(input0)
+or1=or(not1, high)

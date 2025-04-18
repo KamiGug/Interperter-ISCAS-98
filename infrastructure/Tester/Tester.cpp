@@ -20,6 +20,10 @@ std::vector<std::vector<value_t>> Tester::getTestVectors() {
 	return testVectors;
 }
 
+void Tester::restartIterator() {
+	currentTestVector = testVectors.begin();
+}
+
 bool Tester::endOfTestVectors() {
 	return currentTestVector == testVectors.end();
 }

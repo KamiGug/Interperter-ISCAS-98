@@ -1,0 +1,20 @@
+#some=comment
+
+#asda
+
+#INPUT(input0)
+output(dff1)
+output(dff2)
+output(dff3)
+OUTPUT(dff4)
+dff1=dff(not1)
+not1=not(dff1)
+
+dff2=dff(not2, clk:dff1)
+not2=not(dff2)
+
+dff3=dff(not3, clk:dff2)
+not3=not(dff3)
+
+dff4=dff(not4, clk:dff3)
+not4=not(dff4)

@@ -18,6 +18,23 @@ std::string getValueName(value_t val) {
 	}
 }
 
+std::string getValueNumberAsString(value_t val) {
+	switch (val)
+	{
+	case UNKNOWN_VALUE:
+		return "~";
+
+	case LOW_LEVEL:
+		return "0";
+
+	case HIGH_LEVEL:
+		return "1";
+
+	default:
+		return "/";
+	}
+}
+
 int power(int base, int exponent) {
 	int tmp = 1;
 	for (; exponent > 0; exponent--) {
@@ -44,4 +61,40 @@ void rtrim(std::string& s) {
 void trim(std::string& s) {
 	rtrim(s);
 	ltrim(s);
+}
+
+value_t getValueString(std::string str) {
+	//normalize the string
+	trim(str);
+	for (auto& c : str) c = tolower(c);
+
+	if (
+		str == "0"
+		|| str == "low"
+		|| str == "low level"
+		|| str == "low-level"
+		|| str == "lowlevel"
+		) {
+		return LOW_LEVEL;
+	}
+	else if (
+		str == "1"
+		|| str == "high"
+		|| str == "high level"
+		|| str == "high-level"
+		|| str == "highlevel"
+		) {
+		return HIGH_LEVEL;
+	}
+	else {
+		throw std::runtime_error(
+			"Unknown level in CSV test vector! Got: " + str
+		);
+	}
+}
+
+int countCharacter(std::string toTest, char toFind) {
+	int count = 0;
+	for (auto& c : toTest) if (c == toFind) count++;
+	return count;
 }

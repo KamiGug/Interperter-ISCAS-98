@@ -4,8 +4,27 @@
 #include "BinaryNumberTester.h"
 
 BinaryNumberTester::BinaryNumberTester() : Tester() {
-	generateTestVectors();
-	currentTestVector = testVectors.begin();
+	
+}
+
+std::vector<value_t> BinaryNumberTester::getNextTestVector() {
+	if (testVectors.empty()) generateTestVectors();
+	return Tester::getNextTestVector();
+}
+
+std::vector<std::vector<value_t>> BinaryNumberTester::getTestVectors() {
+	if (testVectors.empty()) generateTestVectors();
+	return Tester::getTestVectors();
+}
+
+bool BinaryNumberTester::endOfTestVectors() {
+	if (testVectors.empty()) generateTestVectors();
+	return Tester::endOfTestVectors();
+}
+
+void BinaryNumberTester::restartIterator() {
+	if (testVectors.empty()) generateTestVectors();
+	Tester::restartIterator();
 }
 
 void BinaryNumberTester::generateTestVectors() {
@@ -20,6 +39,7 @@ void BinaryNumberTester::generateTestVectors() {
 			//Signal::getSignal(inputs[i])->setValue((val & (mask << i)) ? HIGH_LEVEL : LOW_LEVEL);
 		}
 	}
+	currentTestVector = testVectors.begin();
 }
 
 

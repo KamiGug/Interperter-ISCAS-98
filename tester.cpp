@@ -5,66 +5,52 @@
 
 using namespace std;
 
-#define INPUT_NO 4
-#define OUTPUT_NO 1
-
-int main()
+int main(int argc, char* argv[])
 {
-	unsigned int mask = 1;
-	unsigned int val = 0;
+	Tester* tester = nullptr;
+	Outputer* outputer = nullptr;
+	std::string iscasFile, ftlFile;
+	parseArgs(argc, argv, tester, outputer, iscasFile, ftlFile);
 
-	string inputs[] = { "input0", "input1", "input2", "input3" };
-	string outputs[] = { "output0" };
-	//for (int i = 0; i < OUTPUT_NO; i++)
-	//{
-	//	Signal::addSignal(outputs[i], UNKNOWN_VALUE, true, false);
-	//}
+	//R"(C:\Users\gugka\Documents\US\rok2\architektura-systemów-komputerowych\cpp\tester\iscas-test-dff.txt)"
+	
+	#ifdef DEBUG
+		iscasFile = R"(C:\Users\gugka\Documents\US\rok2\architektura-systemów-komputerowych\cpp\tester\iscas-test-dff.txt)";
+		ftlFile = R"(C:\Users\gugka\Documents\US\rok2\architektura-systemów-komputerowych\cpp\tester\ftl-test-dff.ftl)";
+		//ftlFile = "";
+		delete outputer;
+		//outputer = new SimpleOutputer();
+		outputer = new CsvInputOutputer();
+		//outputer = new TextRaportOutputer();
+		//outputer->setFilename(R"(C:\Users\gugka\Documents\US\rok2\architektura-systemów-komputerowych\cpp\tester\test.txt)");
+		//outputer->setShouldSaveToFile(true);
+		//outputer->setShouldPrint(false);
+		delete tester;
+		tester = new BinaryNumberTester();
 
-	//Gate::appendGate(new NotGate(Signal::buildFromLabels({ "input1" }), Signal::getSignal("not1"), "not1"));
-
-	//Gate::appendGate(new AndGate(Signal::buildFromLabels({ "input0", "not1" }), Signal::getSignal("and1"), "and1"));
-	//Gate::appendGate(new AndGate(Signal::buildFromLabels({ "input2", "not1" }), Signal::getSignal("and2"), "and2"));
-
-	//Gate::appendGate(new NorGate(Signal::buildFromLabels({ "input3", "not1" }), Signal::getSignal("nor1"), "nor1"));
-	//Gate::appendGate(new NorGate(Signal::buildFromLabels({ "and1", "and2", "nor1" }), Signal::getSignal("output0"), "nor2"));
-
-
-	Interpreter interpreter(R"(C:\Users\gugka\Documents\US\rok2\architektura-systemów-komputerowych\cpp\tester\iscas-test.txt)");
+	#endif // DEBUG
+	
+	//iscasFile = "idontexistlikeatall";
+	Interpreter interpreter(iscasFile);
 	interpreter.interpret();
 
-	Tester* tester = new BinaryNumberTester();
+	//Tester* tester = new BinaryNumberTester();
+	//Tester* tester = new CsvTester(R"(C:\Users\gugka\Documents\US\rok2\architektura-systemów-komputerowych\cpp\tester\csvtest.txt)");
+	//Outputer* outputer = new SimpleOutputer();
+	//Outputer* outputer = new TextRaportOutputer();
 
-	while (tester->endOfTestVectors() == false) {
+	//R"(C:\Users\gugka\Documents\US\rok2\architektura-systemów-komputerowych\cpp\tester\ftl-test-dff.ftl)"
+	//ftlFile = "";
+	FaultReader faultReader(ftlFile);
 
+	std::vector<Fault*> faults = faultReader.getFaults();
+	Simulator simulator(tester, faults);
+	simulator.runAllTests();
 
-		//dummy simulator
-		Signal::setInputs(tester->getNextTestVector());
+	outputer->generateOutput(simulator.getResults());
 
-		Gate::setOutputOfAllGates();
-
-		
-		//dummy output
-		Signal* tmp;
-		for (int i = 0; i < INPUT_NO; i++)
-		{
-			tmp = Signal::getSignal(inputs[i]);
-			cout << "|" << tmp->getLabel() << "=" << getValueName(tmp->getValue());
-		}
-		cout << "|" << endl;
-
-		for (int i = 0; i < OUTPUT_NO; i++)
-		{
-			tmp = Signal::getSignal(outputs[i]);
-			cout << tmp->getLabel() << ": " << getValueName(tmp->getValue()) << endl;
-		}
-
-
-		//again dummy simulator
-		Signal::unsetAllSignals();
-	}
-	
-
-	//cout << "label: " << Signal::getSignal("asdf")->getLabel() << endl << "value: " << Signal::getSignal("asdf")->getValue() << endl;
+	delete tester;
+	delete outputer;
 
 	return 0;
 }

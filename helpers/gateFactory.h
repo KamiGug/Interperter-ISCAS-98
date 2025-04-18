@@ -12,8 +12,11 @@
 #include "../domain/Gate/XorGate.h"
 #include "../domain/Gate/XnorGate.h"
 #include "../domain/Signal.h"
+#include "../domain/Gate/FlipFlop/FlipFlop.h"
+#include "../domain/Gate/FlipFlop/DFlipFlop.h"
 
-typedef std::map<std::string, std::function<Gate *(std::vector<std::string> inputs, std::string output)>> gateFactory_t;
+
+typedef std::map<std::string, std::function<Gate *(std::vector<std::string> inputs, std::string output, std::string clk)>> gateFactory_t;
 
 gateFactory_t* initGateFactory(); 
 

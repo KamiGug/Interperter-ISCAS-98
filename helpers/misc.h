@@ -17,3 +17,9 @@ void rtrim(std::string& s);
 
 // trim from both ends (in place)
 void trim(std::string& s);
+
+value_t getValueString(std::string str);
+
+std::string getValueNumberAsString(value_t val);
+
+int countCharacter(std::string toTest, char toFind);

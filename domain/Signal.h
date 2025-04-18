@@ -49,13 +49,22 @@ public:
 
 	void unsetOutput();
 
-	Signal(std::string label, value_t value = UNKNOWN_VALUE);
+	Signal(std::string label, value_t value = UNKNOWN_VALUE, bool isOutput = false);
 
+	Signal(Signal* signalToCopy);
+
+	static void tickClock();
+
+	static void setClock(value_t value = UNKNOWN_VALUE);
+
+	static Signal* getClock();
 
 private:
 
 	bool isOutput;
 	std::string label;
 	value_t value;
+	static std::vector<Signal*> constSignals;
+	static Signal* clock;
 };
 #endif // !SIGNAL_H

@@ -14,7 +14,8 @@ public:
 	~Tester ();
 	virtual std::vector<value_t> getNextTestVector();
 	virtual bool endOfTestVectors();
-	std::vector<std::vector<value_t>> getTestVectors();
+	virtual std::vector<std::vector<value_t>> getTestVectors();
+	void restartIterator();
 
 protected:
 	std::vector<std::vector<value_t>> testVectors;

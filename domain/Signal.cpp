@@ -24,16 +24,44 @@ void Signal::unsetOutput() {
 	this->isOutput = false;
 }
 
-Signal::Signal(std::string label, value_t value) {
-	this->isOutput = false;
+Signal::Signal(std::string label, value_t value, bool isOutput) {
+	this->isOutput = isOutput;
 	this->setValue(value);
 	this->label = label;
+}
+
+Signal::Signal(Signal* signalToCopy) {
+	this->value = signalToCopy->value;
+	this->label = signalToCopy->label;
+	this->isOutput = signalToCopy->isOutput;
+}
+
+void Signal::tickClock() {
+	if (clock->value == LOW_LEVEL) clock->value = HIGH_LEVEL;
+	else clock->value = LOW_LEVEL;
+}
+
+Signal* Signal::getClock() {
+	return clock;
+}
+
+void Signal::setClock(value_t value) {
+	if (clock->value == UNKNOWN_VALUE) tickClock();
+	else clock->value = value;
 }
 
 
 std::vector<Signal*> Signal::signals;
 std::vector<Signal*> Signal::inputs;
 std::vector<Signal*> Signal::outputs;
+
+std::vector<Signal*> Signal::constSignals = 
+{ 
+	new Signal("high", HIGH_LEVEL, true), 
+	new Signal("low", LOW_LEVEL, true)
+};
+
+Signal* Signal::clock = new Signal("CLOCK", HIGH_LEVEL, true);
 
 void Signal::addSignal(std::string label, value_t value, bool isOutput, bool isInput) {
 	Signal* tmp = new Signal(label, value);
@@ -43,10 +71,23 @@ void Signal::addSignal(std::string label, value_t value, bool isOutput, bool isI
 }
 
 Signal* Signal::getSignal(std::string label, value_t valueToSetIfNonexistent) {
+	if (label == "high" || label == "low") {
+		for (
+			std::vector<Signal*>::iterator i = constSignals.begin(); 
+			i != constSignals.end(); 
+			i++
+		) {
+			if ((*i)->getLabel() == label) return (*i);
+		}
+	}
+
 	std::vector<Signal*>::iterator i = signals.begin();
-	while (i != signals.end()) {
+	for (
+		std::vector<Signal*>::iterator i = signals.begin();
+		i != signals.end();
+		i++
+	) {
 		if ((*i)->getLabel() == label) return (*i);
-		i++;
 	}
 	signals.push_back(new Signal(label, valueToSetIfNonexistent));
 	return signals.back();

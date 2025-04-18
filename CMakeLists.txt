@@ -12,7 +12,20 @@ endif()
 project ("tester")
 
 # Add source to this project's executable.
-add_executable (tester  "helpers/misc.cpp" "domain/Signal.cpp" "domain/Gate/Gate.cpp" "domain/Gate/AndGate.cpp" "domain/Gate/OrGate.cpp" "domain/Gate/NandGate.cpp" "domain/Gate/NorGate.cpp" "domain/Gate/NotGate.cpp" "domain/Gate/XorGate.cpp" "domain/Gate/XnorGate.cpp" "infrastructure/Interpreter/Interpreter.cpp" "tester.cpp" "helpers/gateFactory.cpp" "helpers/gateFactory.h" "infrastructure/Tester/Tester.cpp" "infrastructure/Tester/Tester.h" "infrastructure/Tester/CsvTester.cpp" "infrastructure/Tester/CsvTester.h" "infrastructure/Tester/BinaryNumberTester.cpp")
+add_executable (tester  "helpers/misc.cpp" "domain/Signal.cpp" 
+"domain/Gate/Gate.cpp" "domain/Gate/AndGate.cpp" "domain/Gate/OrGate.cpp" 
+"domain/Gate/NandGate.cpp" "domain/Gate/NorGate.cpp" "domain/Gate/NotGate.cpp" 
+"domain/Gate/XorGate.cpp" "domain/Gate/XnorGate.cpp" 
+"infrastructure/Interpreter/Interpreter.cpp" "tester.cpp" "helpers/gateFactory.cpp" 
+"infrastructure/Tester/Tester.cpp" "infrastructure/Tester/Tester.h" 
+"infrastructure/Tester/CsvTester.cpp" "infrastructure/Tester/CsvTester.h" 
+"infrastructure/Tester/BinaryNumberTester.cpp" "application/Simulator.h" 
+"application/Simulator.cpp" "domain/Fault/Fault.h" "domain/Fault/Fault.cpp" 
+"infrastructure/Outputer/Outputer.h" "infrastructure/Outputer/Outputer.cpp" 
+"infrastructure/Outputer/SimpleOutputer.h" "infrastructure/Outputer/SimpleOutputer.cpp" 
+"infrastructure/FaultReader/FaultReader.cpp" "infrastructure/FaultReader/FaultReader.h" 
+"domain/Fault/SingleGateFault.cpp" "domain/Fault/DoubleGateFault.cpp"
+ "domain/Gate/FlipFlop/FlipFlop.cpp" "domain/Gate/FlipFlop/FlipFlop.h" "domain/Gate/FlipFlop/DFlipFlop.cpp" "domain/Gate/FlipFlop/DFlipFlop.h" "domain/subresults.h" "infrastructure/Outputer/TextRaportOutputer.h" "infrastructure/Outputer/TextRaportOutputer.cpp" "infrastructure/cli/simpleCli.h" "infrastructure/cli/simpleCli.cpp" "infrastructure/Outputer/CsvInputOutputer.cpp" "infrastructure/Outputer/CsvInputOutputer.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET tester PROPERTY CXX_STANDARD 20)

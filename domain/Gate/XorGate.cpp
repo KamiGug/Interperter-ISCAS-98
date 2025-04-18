@@ -3,9 +3,7 @@
 
 #include "XorGate.h"
 
-value_t XorGate::calculateValue(fault_t withThisFault) {
-	if (withThisFault == STUCK_AT_0) return LOW_LEVEL;
-	if (withThisFault == STUCK_AT_1) return HIGH_LEVEL;
+value_t XorGate::calculateValue() {
 	if (!isReady())	return UNKNOWN_VALUE;
 	bool isEven = true;
 	std::vector<Signal*>::iterator i = inputs.begin();

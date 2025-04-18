@@ -10,7 +10,7 @@ public:
 
 
 protected:
-	virtual value_t calculateValue(fault_t withThisFault = NO_FAULT);
+	virtual value_t calculateValue();
 
 	virtual bool isBad();
 

@@ -1,0 +1,12 @@
+#some=comment
+
+#asda
+
+#INPUT(input0)
+#INPUT(input1)
+#INPUT(input2)
+#INPUT(input3)
+OUTPUT(out)
+nOt1=not(low)
+and1=and(low, high)
+out=nor(not1, and1)
